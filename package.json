@@ -1,0 +1,21 @@
+{
+  "name": "wallet-create",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node app.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@solana/spl-token": "^0.4.0",
+    "@solana/web3.js": "^1.89.1",
+    "bip39": "^3.1.0",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.4.1",
+    "micro-ed25519-hdkey": "^0.1.2",
+    "yargs": "^17.7.2"
+  }
+}
