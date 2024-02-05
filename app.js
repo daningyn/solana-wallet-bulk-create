@@ -16,6 +16,11 @@ const argv = require('yargs')
 const connection = new Connection(clusterApiUrl('mainnet-beta'));
 console.log('Connected !');
 
+if (!process.env.mnemonic) {
+  console.log('Please add the seed phrase in .env file!');
+  process.exit(0);
+}
+
 const seed = bip39.mnemonicToSeedSync(process.env.mnemonic, '');
 const hdWallet = HDKey.fromMasterSeed(seed.toString('hex'));
 
