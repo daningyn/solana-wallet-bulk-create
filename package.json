@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node app.ts"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,8 +14,11 @@
     "@solana/web3.js": "^1.89.1",
     "bip39": "^3.1.0",
     "bs58": "^5.0.0",
+    "chalk": "^4.1.2",
     "dotenv": "^16.4.1",
+    "ethers": "^5.7",
     "micro-ed25519-hdkey": "^0.1.2",
+    "readline-sync": "^1.4.10",
     "yargs": "^17.7.2"
   }
 }

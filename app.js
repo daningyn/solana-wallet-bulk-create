@@ -1,46 +1,35 @@
-const { Connection, clusterApiUrl, Keypair } = require('@solana/web3.js');
-const bip39 = require('bip39');
+const chalk = require('chalk');
+const readlineSync = require('readline-sync');
 const dotenv = require('dotenv');
-const { HDKey } = require('micro-ed25519-hdkey');
-const bs58 = require('bs58');
-const fs = require('fs');
+const { bulkCreateSolanaWallet } = require('./solana');
+const { bulkCreateEVMWallet } = require('./evm');
+
 
 dotenv.config({ path: '.env' });
-const argv = require('yargs')
-              .string('wn')
-              .parserConfiguration({
-                'parse-numbers': false
-              })
-              .argv;
 
-const connection = new Connection(clusterApiUrl('mainnet-beta'));
-console.log('Connected !');
+const main = () => {
+  console.log(chalk.green(`-----Web3 CLI-----.`))
 
-if (!process.env.mnemonic) {
-  console.log('Please add the seed phrase in .env file!');
-  process.exit(0);
+  console.log(chalk.green("1. Create bulk solana wallet"));
+  console.log(chalk.green("2. Create bulk evm wallet"));
+
+  console.log(chalk.green("0. Exit!"))
+
+  let nameFeature = readlineSync.questionInt("Choose method: ", { min: 0, max: 1 });
+  
+  switch (nameFeature) {
+    case 1:
+      const seedphase = readlineSync.question('Mnemonic (if not, enter to generate new one): ');
+      const nw = readlineSync.questionInt('Number of wallet you want to create (required): ');
+      bulkCreateSolanaWallet(seedphase, nw);
+      break
+    case 2:
+      const evmSeed = readlineSync.question('Mnemonic (if not, enter to generate new one): ');
+      const evmNW = readlineSync.questionInt('Number of wallet you want to create (required): ');
+      bulkCreateEVMWallet(evmSeed, evmNW);
+    default:
+      break;
+  }
 }
 
-const seed = bip39.mnemonicToSeedSync(process.env.mnemonic, '');
-const hdWallet = HDKey.fromMasterSeed(seed.toString('hex'));
-
-const nw = argv.nw;
-if (!nw || !parseInt(nw)) {
-  console.log('Missing parameter. Please add param --nw 10 with 10 is your wallet number you would like to create');
-  process.exit(0);
-}
-
-let results = [];
-for (let i=0; i<nw; i++) {
-  const path = `m/44'/501'/${i}'/0'`;
-  const privateKey = hdWallet.derive(path).privateKey;
-  const keypair = Keypair.fromSeed(privateKey);
-  const publicKey = keypair.publicKey;
-  const secretKey = keypair.secretKey;
-  results.push(`${publicKey.toBase58()} | ${bs58.encode(secretKey)}`);
-}
-
-fs.writeFileSync('./results.txt', results.join('\n'), 'utf-8');
-
-console.log('Done!');
-
+main();

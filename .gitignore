@@ -142,6 +142,6 @@ dist
 .svelte-kit
 
 package-lock.json
-results.txt
+*results.txt
 
 # End of https://www.toptal.com/developers/gitignore/api/node
