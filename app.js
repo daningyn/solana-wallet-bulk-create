@@ -3,6 +3,7 @@ const readlineSync = require('readline-sync');
 const dotenv = require('dotenv');
 const { bulkCreateSolanaWallet } = require('./solana');
 const { bulkCreateEVMWallet, transferSepoliaInSeed } = require('./evm');
+const { transferSWANETHInSeed } = require('./evm/utils');
 
 
 dotenv.config({ path: '.env' });
@@ -13,10 +14,11 @@ const main = async () => {
   console.log(chalk.green("1. Create bulk solana wallet"));
   console.log(chalk.green("2. Create bulk evm wallet"));
   console.log(chalk.green("3. Transfer SepoliaETH in seed with range"))
+  console.log(chalk.green("4. Transfer SwanETH in seed with range"))
 
   console.log(chalk.green("0. Exit!"))
 
-  let nameFeature = readlineSync.questionInt("Choose method: ", { min: 0, max: 3 });
+  let nameFeature = readlineSync.questionInt("Choose method: ", { min: 0, max: 4 });
 
   switch (nameFeature) {
     case 1:
@@ -34,6 +36,12 @@ const main = async () => {
       const evmTo = readlineSync.questionInt('Seed to: ');
       const evmValue = readlineSync.questionFloat('Value: ');
       await transferSepoliaInSeed(evmMnemonic, evmFrom, evmTo, evmValue);
+    case 4:
+      const swanMnemonic = readlineSync.question('Seed: ');
+      const swanFrom = readlineSync.questionInt('Seed from: ');
+      const swanTo = readlineSync.questionInt('Seed to: ');
+      const swanValue = readlineSync.questionFloat('Value: ');
+      await transferSWANETHInSeed(swanMnemonic, swanFrom, swanTo, swanValue);
     default:
       break;
   }
