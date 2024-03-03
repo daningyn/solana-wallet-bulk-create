@@ -17,6 +17,7 @@
     "chalk": "^4.1.2",
     "dotenv": "^16.4.1",
     "ethers": "^5.7",
+    "hardhat": "^2.20.1",
     "micro-ed25519-hdkey": "^0.1.2",
     "readline-sync": "^1.4.10",
     "yargs": "^17.7.2"

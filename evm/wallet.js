@@ -1,4 +1,4 @@
-const { utils } = require('ethers');
+const { utils, Wallet } = require('ethers');
 const fs = require('fs');
 const { BULK_GENERATED_WALLETS_FILE } = require('../common/constant');
 
@@ -14,12 +14,10 @@ const bulkCreateEVMWallet = (mnemonic, nw) => {
     tMnemonic = utils.entropyToMnemonic(utils.randomBytes(16));
   }
 
-  const node = utils.HDNode.fromMnemonic(tMnemonic);
-
   let results = [];
   for (let i=0; i<nw; i++) {
     const path = `m/44'/60'/0'/0/${i}`;
-    const wallet = node.derivePath(path);
+    const wallet = Wallet.fromMnemonic(tMnemonic, path);
     const publicKey = wallet.address;
     const secretKey = wallet.privateKey;
     results.push(`${i+1} | ${publicKey} | ${secretKey}`);

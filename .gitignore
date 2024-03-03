@@ -144,4 +144,6 @@ dist
 package-lock.json
 *results.txt
 
+cache
+
 # End of https://www.toptal.com/developers/gitignore/api/node
