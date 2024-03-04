@@ -30,18 +30,21 @@ const main = async () => {
       const evmSeed = readlineSync.question('Mnemonic (if not, enter to generate new one): ');
       const evmNW = readlineSync.questionInt('Number of wallet you want to create (required): ');
       bulkCreateEVMWallet(evmSeed, evmNW);
+      break
     case 3:
       const evmMnemonic = readlineSync.question('Seed: ');
       const evmFrom = readlineSync.questionInt('Seed from: ');
       const evmTo = readlineSync.questionInt('Seed to: ');
       const evmValue = readlineSync.questionFloat('Value: ');
       await transferSepoliaInSeed(evmMnemonic, evmFrom, evmTo, evmValue);
+      break
     case 4:
       const swanMnemonic = readlineSync.question('Seed: ');
       const swanFrom = readlineSync.questionInt('Seed from: ');
       const swanTo = readlineSync.questionInt('Seed to: ');
       const swanValue = readlineSync.questionFloat('Value: ');
       await transferSWANETHInSeed(swanMnemonic, swanFrom, swanTo, swanValue);
+      break
     default:
       break;
   }
